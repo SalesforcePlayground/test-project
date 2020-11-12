@@ -17,8 +17,9 @@ before_install:
 - export PATH=./sfdx/$(pwd):$PATH
 - sfdx --version
 - sfdx plugins --core
-- sfdx force:auth:jwt:grant --clientid 3MVG9VeAQy5y3BQWU89GS7C2aWjASWVjPi.woHqMWvHmtFZ9C3CBAYR0334t3g_4V1sCvelwTQJT8lR5yCMR3 --jwtkeyfile certs/server.key
-  --username manoj.reddy.bedadhala@empathetic-narwhal-f9gcbl.com --setdefaultdevhubusername -a HubOrg
+- sfdx force:auth:jwt:grant --clientid 3MVG9VeAQy5y3BQWU89GS7C2aWjASWVjPi.woHqMWvHmtFZ9C3CBAYR0334t3g_4V1sCvelwTQJT8lR5yCMR3
+  --jwtkeyfile certs/server.key --username manoj.reddy.bedadhala@empathetic-narwhal-f9gcbl.com
+  --setdefaultdevhubusername -a HubOrg
 - sfdx force:org:display -u HubOrg
 script:
 - py ext_packages.py
