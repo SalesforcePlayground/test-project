@@ -3,7 +3,7 @@ import subprocess,json
 def createScratchOrg():
     print('Creating so')
     createScratchOrg = subprocess.check_output(
-        "sfdx force:org:create -v  isc-test -s -f config/project-scratch-def.json -a so_test --wait 10 --json",shell=True)
+        "sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a so_test --wait 10 --json",shell=True)
     createScratchOrg = json.loads(str(createScratchOrg.decode('utf-8')))
     print('Created so: ')
     print(createScratchOrg)
