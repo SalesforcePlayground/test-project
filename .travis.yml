@@ -2,9 +2,12 @@ sudo: true
 os: trusty
 cache: false
 language: python
+python:
+  - 3.8
 env:
 - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
+- python --version
 - openssl aes-256-cbc -K $encrypted_6ca54e48197d_key -iv $encrypted_6ca54e48197d_iv
   -in certs/server.key.enc -out certs/server.key -d
 - export SFDX_AUTOUPDATE_DISABLE=false
