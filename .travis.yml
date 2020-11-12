@@ -23,7 +23,7 @@ before_install:
   --setdefaultdevhubusername -a HubOrg
 - sfdx force:org:display -u HubOrg
 script:
-- py ext_packages.py
+- python ext_packages.py
 # - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a easyspacesorg --wait 3
 # - sfdx force:org:display -u easyspacesorg
 # # Reading json file
