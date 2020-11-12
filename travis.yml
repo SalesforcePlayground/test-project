@@ -1,0 +1,36 @@
+sudo: true
+os: trusty
+cache: false
+env:
+- URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+before_install:
+- openssl aes-256-cbc -K $encrypted_6ca54e48197d_key -iv $encrypted_6ca54e48197d_iv
+  -in certs/server.key.enc -out certs/server.key -d
+- export SFDX_AUTOUPDATE_DISABLE=false
+- export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+- export SFDX_DOMAIN_RETRY=300
+- export SFDX_DISABLE_APP_HUB=true
+- export SFDX_LOG_LEVEL=DEBUG
+- mkdir sfdx
+- wget -qO- $URL | tar xJ -C sfdx --strip-components 1
+- "./sfdx/install"
+- export PATH=./sfdx/$(pwd):$PATH
+- sfdx --version
+- sfdx plugins --core
+- sfdx force:auth:jwt:grant --clientid 3MVG9VeAQy5y3BQWU89GS7C2aWjASWVjPi.woHqMWvHmtFZ9C3CBAYR0334t3g_4V1sCvelwTQJT8lR5yCMR3 --jwtkeyfile certs/server.key
+  --username manoj.reddy.bedadhala@empathetic-narwhal-f9gcbl.com --setdefaultdevhubusername -a HubOrg
+- sfdx force:org:display -u HubOrg
+script:
+- py ext_packages.py
+# - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a easyspacesorg --wait 3
+# - sfdx force:org:display -u easyspacesorg
+# # Reading json file
+# - ext_dependencies=cat ext_packages.json
+# # Iterating through the list
+# - for pkg in ext_dependencies
+#     do
+#       sfdx force:package:install --package jq '.package_id' pkg -u $USER_NAME -w $WAIT_TIME --publishwait 10
+#     done
+# - sfdx force:package:install --package 04t1U0000058ZIuQAM -u $USER_NAME -w $WAIT_TIME --publishwait 10
+# - sfdx force:source:push -u easyspacesorg
+# - sfdx force:org:delete -u easyspacesorg -p
